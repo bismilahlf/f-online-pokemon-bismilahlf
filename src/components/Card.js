@@ -10,16 +10,26 @@ class Card extends Component {
     }
   }
 
+  componentDidMount(){
+    
+  }
+
   render() {
     return (
-      <ul>
-        <li>
-          <img src="" alt=""/>
-          <span></span>
-          <h2>pokemon</h2>
-          <span></span>
-       </li>
-      </ul>
+      <div>
+        <img src={this.props.pokemon.sprites.front_default} alt=""/>
+        <span>ID/{this.props.pokemon.id}</span>
+        <h2>{this.props.pokemon.name}</h2>
+        <ul>
+          {this.props.pokemon.types.map((item, i) => {
+            return (
+              <li key={i}>{item.type.name}</li>
+            )
+          })}
+        </ul>
+        
+        
+      </div>
       
     )
   }
