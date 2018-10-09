@@ -1,9 +1,10 @@
 .card-wrapper {
-  background: lightgray;
+  background: rgb(221, 221, 221);
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  font-family: sans-serif;
 }
 
 .card-image {
@@ -14,17 +15,27 @@
 }
 
 .card-id {
-  background: grey;
-  padding: 2px 5px;
+  background: rgb(187, 187, 187);
+  color: gray;
+  padding: 2px 6px;
   width: 50px;
+  border-radius: 2px;
+  font-size: 15px;
 }
 
 .wrapper-secondary {
   background: white;
   flex-grow: 1;
+  padding: 10px 10px;
 }
 
 .card-type {
   list-style: none;
-  height: 100%;
+  display: inline;
+  margin-right: 5px;
+  padding: 2px;
+  border: 1px solid rgb(148, 146, 146);
+  border-radius: 5px;
+  color: rgb(121, 119, 119);
+  font-size: 10px;
 }

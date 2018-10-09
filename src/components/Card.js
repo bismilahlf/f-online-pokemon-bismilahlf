@@ -25,7 +25,7 @@ class Card extends Component {
           <ul>
             {this.props.pokemon.types.map((item, i) => {
               return (
-                <li className="card-type" key={i}>{item.type.name}</li>
+                <li className="card-type" key={i}>{item.type.name.toUpperCase()}</li>
               )
             })}
           </ul>
