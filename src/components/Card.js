@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/Card.css';
 
 class Card extends Component {
 
@@ -16,17 +17,20 @@ class Card extends Component {
 
   render() {
     return (
-      <div>
-        <img src={this.props.pokemon.sprites.front_default} alt=""/>
-        <span>ID/{this.props.pokemon.id}</span>
-        <h2>{this.props.pokemon.name}</h2>
-        <ul>
-          {this.props.pokemon.types.map((item, i) => {
-            return (
-              <li key={i}>{item.type.name}</li>
-            )
-          })}
-        </ul>
+      <div className="card-wrapper">
+        <img className="card-image" src={this.props.pokemon.sprites.front_default} alt=""/>
+        <span className="card-id">ID/{this.props.pokemon.id}</span>
+        <div className="wrapper-secondary">
+          <h2>{this.props.pokemon.name}</h2>
+          <ul>
+            {this.props.pokemon.types.map((item, i) => {
+              return (
+                <li className="card-type" key={i}>{item.type.name}</li>
+              )
+            })}
+          </ul>
+        </div>
+        
         
         
       </div>

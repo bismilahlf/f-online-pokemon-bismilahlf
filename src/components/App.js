@@ -46,22 +46,29 @@ class App extends Component {
   }
 
   render() {
+    this.state.filteredCardList.sort((a, b) => {
+      return a.id - b.id;
+    });
     return (
-      <div>
-        <input type="text" onChange={this.filterByName}/>
-        <ul className="character-list">
-          {
-            this.state.filteredCardList.map( (item, i) => {
+      <div className="app-wrapper">
+        <div className="input-wrapper">
+         <input className="app-input" type="text" onChange={this.filterByName}/>
+        </div>
+        <div className="pokemon-list-wrapper">
+          <ul className="pokemon-list">
+            {
+              this.state.filteredCardList.map( (item, i) => {
                 return (
-                    <li key={i}>
-                        <Card
-                          pokemon={item}
-                        />
-                    </li>
+                  <li className="pokemon-list-element" key={i}>
+                    <Card
+                      pokemon={item}
+                    />
+                  </li>
                 )
-            })
-          }
-        </ul>
+              })
+            }
+          </ul>
+        </div>
       </div>
     );
   }
