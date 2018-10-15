@@ -1,6 +1,5 @@
-.app-wrapper {
+body {
   background: rgb(255, 230, 0);
-  width: 100vw;
 }
 
 .input-wrapper {
@@ -28,3 +27,11 @@
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: darkviolet;
+}

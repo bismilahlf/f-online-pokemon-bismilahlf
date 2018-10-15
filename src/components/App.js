@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Route, Switch, Link } from 'react-router-dom';
 import '../styles/App.css';
 import Card from './Card';
+import Details from './Details'
 
 
 class App extends Component {
@@ -16,11 +18,17 @@ class App extends Component {
     }
   }
 
+
   componentDidMount(){
-    fetch('https://pokeapi.co/api/v2/pokemon/')
+    let APIcall = 'https://pokeapi.co/api/v2/pokemon/';
+    
+  // 1) LLamada a la 1ª URL
+    fetch(APIcall)
     .then((response) => {return response.json()})
     .then((responseJSON) => {
       for (let i = 0; i < 25; i++) {
+        
+        // Llamada a la 2ª URL    
         fetch(responseJSON.results[i].url)
         .then(data => data.json())
         .then(dataJSON => {
@@ -46,29 +54,44 @@ class App extends Component {
   }
 
   render() {
+    
+    //Ordenar las tarjetas por ID
     this.state.filteredCardList.sort((a, b) => {
       return a.id - b.id;
     });
+
+    const pokemons = this.state.filteredCardList.map( (item, i) => {
+      return (
+        <li className="pokemon-list-element" key={i}>
+          <Link to={`/details/${item.id}`}>
+            <Card
+              pokemon={item}
+            />
+          </Link>
+          
+        </li>
+      )
+    });
+
     return (
       <div className="app-wrapper">
-        <div className="input-wrapper">
-         <input className="app-input" type="text" onChange={this.filterByName}/>
-        </div>
-        <div className="pokemon-list-wrapper">
-          <ul className="pokemon-list">
-            {
-              this.state.filteredCardList.map( (item, i) => {
-                return (
-                  <li className="pokemon-list-element" key={i}>
-                    <Card
-                      pokemon={item}
-                    />
-                  </li>
-                )
-              })
-            }
-          </ul>
-        </div>
+        <Switch>
+          <Route exact path='/' render={ () => 
+            <div>
+              <div className="input-wrapper">
+              <input className="app-input" type="text" onChange={this.filterByName}/>
+              </div>
+              <div className="pokemon-list-wrapper">
+                <ul className="pokemon-list">
+                  {pokemons}
+                </ul>
+              </div>
+            </div>
+          } />
+          <Route path='/details/:id' component={ Details } />
+
+        </Switch>
+        
       </div>
     );
   }
