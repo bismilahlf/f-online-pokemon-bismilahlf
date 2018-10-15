@@ -16,13 +16,17 @@ class App extends Component {
     }
   }
 
+
   componentDidMount(){
     let APIcall = 'https://pokeapi.co/api/v2/pokemon/';
     
+  // 1) LLamada a la 1ª URL
     fetch(APIcall)
     .then((response) => {return response.json()})
     .then((responseJSON) => {
       for (let i = 0; i < 25; i++) {
+        
+  // Llamada a la 2ª URL    
         fetch(responseJSON.results[i].url)
         .then(data => data.json())
         .then(dataJSON => {
@@ -31,7 +35,6 @@ class App extends Component {
             filteredCardList: this.state.filteredCardList.concat(dataJSON)
           })
         })
-        console.log("response",responseJSON.results[i].url)
       }
     })
   }
@@ -49,6 +52,8 @@ class App extends Component {
   }
 
   render() {
+    
+    //Ordenar las tarjetas por ID
     this.state.filteredCardList.sort((a, b) => {
       return a.id - b.id;
     });
