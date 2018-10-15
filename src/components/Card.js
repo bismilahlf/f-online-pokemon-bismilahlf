@@ -7,12 +7,20 @@ class Card extends Component {
     super(props);
 
     this.state = {
-      cardInfo: []
+      evolvesFrom: ''
     }
   }
 
-  componentDidMount(){
-    
+  componentWillReceiveProps(props){
+    fetch(`https://pokeapi.co/api/v2/pokemon-species/${props.pokemon.id}/`)
+    .then((response) => response.json())
+    .then((responseJSON) => {
+      this.setState({
+        evolvesFrom: responseJSON.evolves_from_species 
+        ? `Evolves from: ${responseJSON.evolves_from_species.name}` 
+        : ''
+      })
+    })
   }
 
   render() {
@@ -29,6 +37,7 @@ class Card extends Component {
               )
             })}
           </ul>
+          <h3>{this.state.evolvesFrom}</h3>
         </div>
         
         

@@ -17,7 +17,9 @@ class App extends Component {
   }
 
   componentDidMount(){
-    fetch('https://pokeapi.co/api/v2/pokemon/')
+    let APIcall = 'https://pokeapi.co/api/v2/pokemon/';
+    
+    fetch(APIcall)
     .then((response) => {return response.json()})
     .then((responseJSON) => {
       for (let i = 0; i < 25; i++) {
@@ -29,6 +31,7 @@ class App extends Component {
             filteredCardList: this.state.filteredCardList.concat(dataJSON)
           })
         })
+        console.log("response",responseJSON.results[i].url)
       }
     })
   }
@@ -49,6 +52,16 @@ class App extends Component {
     this.state.filteredCardList.sort((a, b) => {
       return a.id - b.id;
     });
+
+    const pokemons = this.state.filteredCardList.map( (item, i) => {
+      return (
+        <li className="pokemon-list-element" key={i}>
+          <Card
+            pokemon={item}
+          />
+        </li>
+      )
+    });
     return (
       <div className="app-wrapper">
         <div className="input-wrapper">
@@ -56,17 +69,7 @@ class App extends Component {
         </div>
         <div className="pokemon-list-wrapper">
           <ul className="pokemon-list">
-            {
-              this.state.filteredCardList.map( (item, i) => {
-                return (
-                  <li className="pokemon-list-element" key={i}>
-                    <Card
-                      pokemon={item}
-                    />
-                  </li>
-                )
-              })
-            }
+            {pokemons}
           </ul>
         </div>
       </div>
