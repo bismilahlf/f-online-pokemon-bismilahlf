@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import '../styles/App.css';
 import Card from './Card';
+import Details from './Details'
 
 
 class App extends Component {
@@ -27,7 +28,7 @@ class App extends Component {
     .then((responseJSON) => {
       for (let i = 0; i < 25; i++) {
         
-  // Llamada a la 2ª URL    
+        // Llamada a la 2ª URL    
         fetch(responseJSON.results[i].url)
         .then(data => data.json())
         .then(dataJSON => {
@@ -62,22 +63,35 @@ class App extends Component {
     const pokemons = this.state.filteredCardList.map( (item, i) => {
       return (
         <li className="pokemon-list-element" key={i}>
-          <Card
-            pokemon={item}
-          />
+          <Link to={`/details/${item.id}`}>
+            <Card
+              pokemon={item}
+            />
+          </Link>
+          
         </li>
       )
     });
+
     return (
       <div className="app-wrapper">
-        <div className="input-wrapper">
-         <input className="app-input" type="text" onChange={this.filterByName}/>
-        </div>
-        <div className="pokemon-list-wrapper">
-          <ul className="pokemon-list">
-            {pokemons}
-          </ul>
-        </div>
+        <Switch>
+          <Route exact path='/' render={ () => 
+            <div>
+              <div className="input-wrapper">
+              <input className="app-input" type="text" onChange={this.filterByName}/>
+              </div>
+              <div className="pokemon-list-wrapper">
+                <ul className="pokemon-list">
+                  {pokemons}
+                </ul>
+              </div>
+            </div>
+          } />
+          <Route path='/details/:id' component={ Details } />
+
+        </Switch>
+        
       </div>
     );
   }
